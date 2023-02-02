@@ -1,5 +1,5 @@
 import { Form, Button } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -20,15 +20,19 @@ function CreatePost() {
     });
   };
 
+  useEffect(() => {
+    console.log(post);
+  }, [post]);
+
   const createPost = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // prevent default behavior so it doesn't reload the page
 
     axios
       .post("/create", post)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
-    navigate("posts");
+    navigate("posts"); // navigate to /create/posts the router will understand
   };
 
   return (

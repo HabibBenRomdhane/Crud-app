@@ -9,9 +9,10 @@ app.use(cors());
 
 //DB configs
 mongoose
-  .connect("mongodb://localhost:27017/mypostsDB")
+  .connect("mongodb://localhost:27017/mypostsDB") // the local mongoDB
   .catch((err) => console.log(err));
 
+// create DB Schema and model
 const postSchema = mongoose.Schema({
   title: String,
   description: String,
@@ -37,11 +38,11 @@ app.post("/create", (req, res) => {
 
 app.get("/posts", (req, res) => {
   Post.find()
-    .then((items) => res.json(items))
-    .catch((err) => console.log(err));
+    .then((items) => res.json(items)) // we want to send a response from the server to the client; sending this items in json formats
+    .catch((err) => console.log(err)); // json formats they are javascripts objects
 });
 
-app.delete("/delete/:id", (req, res) => {
+app.delete("/delete/:id", (req, res) => { // :id this is called a request parameter
   console.log(req.params);
   Post.findByIdAndDelete({ _id: req.params.id })
     .then((doc) => console.log(doc))
@@ -49,6 +50,9 @@ app.delete("/delete/:id", (req, res) => {
 });
 
 app.put("/update/:id", (req, res) => {
+  console.log(req.params); // parameter of request
+  console.log(req.body); // body of request
+
   Post.findByIdAndUpdate(
     { _id: req.params.id },
     {

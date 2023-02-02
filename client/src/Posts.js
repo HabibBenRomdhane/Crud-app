@@ -25,13 +25,13 @@ function Posts() {
         setPosts(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, []); // the brackets to avoid continues rendering
 
   const deletePost = (id) => {
     console.log(id);
 
     axios
-      .delete(`/delete/${id}`)
+      .delete(`/delete/${id}`) // we use the backtiks because we have a dynamic url
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
@@ -120,7 +120,7 @@ function Posts() {
                   border: "solid lightgray 1px",
                   borderRadius: "8px",
                 }}
-                key={post._id}
+                key={post._id} //we need to provide a unique key to the first return element in our case is this div
               >
                 <h4>{post.title}</h4>
                 <p>{post.description}</p>
@@ -143,7 +143,7 @@ function Posts() {
                     UPDATE
                   </Button>
                   <Button
-                    onClick={() => deletePost(post._id)}
+                    onClick={() => deletePost(post._id)} // _id its generated when we save the post in the mongoDB
                     variant="outline-danger"
                     style={{ width: "100%" }}
                   >
